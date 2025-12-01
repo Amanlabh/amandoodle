@@ -1,0 +1,19 @@
+<svg width="180" height="180" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="180" height="180" rx="37" fill="black"/>
+  <g style="transform: scale(85%); transform-origin: center">
+    <!-- Stylized A shape in white -->
+    <path d="M90 45L65 120H75L82 100H98L105 120H115L90 45Z" fill="white"/>
+    <path d="M85 85H95L90 70L85 85Z" fill="black"/>
+    
+    <!-- Flame/pink-purple shape underneath -->
+    <path d="M70 125Q90 145 110 125Q100 135 90 140Q80 135 70 125Z" fill="url(#flameGradient)"/>
+    <path d="M75 130Q90 145 105 130Q95 138 90 142Q85 138 75 130Z" fill="url(#flameGradient)" opacity="0.8"/>
+  </g>
+  
+  <defs>
+    <linearGradient id="flameGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#FF69B4;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#9370DB;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+</svg>
