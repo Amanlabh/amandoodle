@@ -7,6 +7,7 @@ import WorkExperience from "@/components/work-experience"
 import NotesSection from "@/components/notes-section"
 import FeedbackSection from "@/components/feedback-section"
 import ChatContainer from "@/components/chat-container"
+import { StatusSection } from "@/components/status-section"
 
 export default function Home() {
   const [isJumping, setIsJumping] = useState(false)
@@ -183,10 +184,11 @@ export default function Home() {
           <div className="mb-6 inline-block rounded border border-border bg-card/80 backdrop-blur-sm px-3 py-1 font-mono text-sm text-muted-foreground">
             ~/aman-kumar
           </div>
-          <h1 className="mb-4 text-4xl font-bold tracking-tight text-foreground md:text-5xl">Aman Kumar</h1>
-          <p className="mb-6 font-mono text-lg text-muted-foreground">
+          <h1 className="mb-2 text-4xl font-bold tracking-tight text-foreground md:text-5xl">Aman Kumar</h1>
+          <p className="mb-4 font-mono text-lg text-muted-foreground">
             Flutter Developer, React, Next.js, Cloud/DevOps, Scripting, Gen AI — Fullstack Engineer
           </p>
+          <StatusSection />
 
           <div className="flex gap-4">
             <a
