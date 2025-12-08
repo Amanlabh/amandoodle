@@ -186,7 +186,7 @@ export default function Home() {
           </div>
           <h1 className="mb-2 text-4xl font-bold tracking-tight text-foreground md:text-5xl">Aman Kumar</h1>
           <p className="mb-4 font-mono text-lg text-muted-foreground">
-            Flutter Developer, React, Next.js, Cloud/DevOps, Scripting, Gen AI — Fullstack Engineer
+            Flutter Developer, React, Vue.js, Next.js, Cloud/DevOps, Scripting, Gen AI — Fullstack Engineer
           </p>
           <StatusSection />
 
@@ -306,6 +306,35 @@ export default function Home() {
               </h2>
 
               <div className="grid gap-4">
+                <div className="group rounded-lg border border-border bg-card/80 backdrop-blur-sm p-5 transition-all hover:border-foreground/20 hover:shadow-lg">
+                  <div className="mb-2 flex items-start justify-between">
+                    <h3 className="font-medium text-foreground">PortFILIA</h3>
+                    <div className="flex items-center gap-3">
+                      <a
+                        href="https://github.com/Amanlabh/PortFILIA"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-muted-foreground transition-colors hover:text-foreground"
+                      >
+                        <Github size={18} />
+                      </a>
+                      <a
+                        href="https://port-filia.vercel.app/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-muted-foreground transition-colors hover:text-foreground"
+                      >
+                        <ExternalLink size={18} />
+                      </a>
+                    </div>
+                  </div>
+                  <p className="mb-3 text-sm text-muted-foreground">
+                    VueJS platform to create and follow portfolios, plus schedule or request
+                    Google Meet sessions.
+                  </p>
+                  <code className="font-mono text-xs text-muted-foreground">port-filia.vercel.app</code>
+                </div>
+
                 <div className="group rounded-lg border border-border bg-card/80 backdrop-blur-sm p-5 transition-all hover:border-foreground/20 hover:shadow-lg">
                   <div className="mb-2 flex items-start justify-between">
                     <h3 className="font-medium text-foreground">Coursera Skip & Test Chrome Extension</h3>
