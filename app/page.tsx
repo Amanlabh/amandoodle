@@ -186,7 +186,7 @@ export default function Home() {
           </div>
           <h1 className="mb-2 text-4xl font-bold tracking-tight text-foreground md:text-5xl">Aman Kumar</h1>
           <p className="mb-4 font-mono text-lg text-muted-foreground">
-            Flutter Developer, React, Vue.js, Next.js, Cloud/DevOps, Scripting, Gen AI — Fullstack Engineer
+            Flutter, React Native,  Data Engineering & Automation, React, Vue.js, Next.js, Cloud/DevOps, Scripting, Gen AI — Fullstack Engineer
           </p>
           <StatusSection />
 
