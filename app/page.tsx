@@ -186,9 +186,9 @@ export default function Home() {
           </div>
           <h1 className="mb-2 text-4xl font-bold tracking-tight text-foreground md:text-5xl">Aman Kumar</h1>
           <p className="mb-4 font-mono text-lg text-muted-foreground">
-            Flutter • React Native • Data Engineering & Automation • React • Vue.js • Next.js • Node.js • TypeScript • Python • Cloud/DevOps (AWS, GCP) • CI/CD • Docker • Kubernetes • Scripting • Gen AI • ML Ops — Fullstack Engineer
+            Flutter • React Native • Data Engineering & Automation • React • Vue.js • Next.js • Node.js • TypeScript • Python • Cloud/DevOps (AWS, Azurre, GCP) • CI/CD • Docker • Kubernetes • Scripting • Gen AI • ML Ops — Fullstack Engineer
           </p>
-          <StatusSection />
+          <StatusSection /> 
 
           <div className="flex gap-4">
             <a
