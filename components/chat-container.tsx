@@ -302,150 +302,227 @@ export default function ChatContainer() {
   const isAdmin = user?.email === adminEmail
 
   return (
-    <div className="max-w-4xl mx-auto">
-      <div className="flex h-[600px] border border-border rounded-lg overflow-hidden bg-card">
-      {/* Chat Rooms Sidebar - Admin Only */}
-      {isAdmin && (
-        <div className="w-80 border-r border-border bg-background">
-          <div className="p-4 border-b border-border">
-            <div className="flex items-center justify-between">
-              <h3 className="font-semibold text-foreground">Conversations</h3>
-              <button
-                onClick={signOut}
-                className="p-1 text-muted-foreground hover:text-foreground transition-colors"
-                title="Sign out"
-              >
-                <LogOut size={16} />
-              </button>
-            </div>
-          </div>
-          <div className="overflow-y-auto h-full">
-            {chatRooms.length === 0 ? (
-              <div className="text-center py-8 text-muted-foreground">
-                <Users size={48} className="mx-auto mb-4 opacity-50" />
-                <p>No conversations yet</p>
-              </div>
-            ) : (
-              <div className="divide-y divide-border">
-                {chatRooms.map((room) => (
-                  <div
-                    key={room.id}
-                    onClick={() => selectRoom(room)}
-                    className={`p-4 cursor-pointer hover:bg-muted transition-colors ${
-                      selectedRoom?.id === room.id ? 'bg-muted' : ''
-                    }`}
-                  >
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center">
-                        <User size={20} className="text-primary" />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <h4 className="font-medium text-foreground truncate">{room.user_name}</h4>
-                        <p className="text-sm text-muted-foreground truncate">{room.user_email}</p>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-        </div>
-      )}
-
-      {/* Chat Messages */}
-      <div className="flex-1 flex flex-col">
-        {selectedRoom ? (
-          <>
-            {/* Chat Header */}
-            <div className="p-4 border-b border-border bg-background">
+    <div className="w-full h-full max-w-6xl mx-auto">
+      <div className="flex flex-col md:flex-row h-[calc(100vh-200px)] md:h-[600px] border border-border rounded-xl overflow-hidden bg-card shadow-lg">
+        {/* Chat Rooms Sidebar - Admin Only */}
+        {isAdmin && (
+          <div className="w-full md:w-80 border-b md:border-b-0 md:border-r border-border bg-background flex flex-col">
+            <div className="p-4 border-b border-border bg-card/80 backdrop-blur-sm">
               <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center">
-                    <User size={16} className="text-primary" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-foreground">
-                      {isAdmin ? selectedRoom.user_name : 'Chat with Aman'}
-                    </h3>
-                    <p className="text-sm text-muted-foreground">
-                      {isAdmin ? selectedRoom.user_email : 'Online'}
-                    </p>
-                  </div>
-                </div>
-                {!isAdmin && (
-                  <button
-                    onClick={signOut}
-                    className="p-1 text-muted-foreground hover:text-foreground transition-colors"
-                    title="Sign out"
-                  >
-                    <LogOut size={16} />
-                  </button>
-                )}
+                <h3 className="font-semibold text-foreground">Conversations</h3>
+                <button
+                  onClick={signOut}
+                  className="p-1.5 rounded-full hover:bg-muted text-muted-foreground hover:text-foreground transition-colors"
+                  title="Sign out"
+                >
+                  <LogOut size={16} />
+                </button>
               </div>
-            </div>
-
-            {/* Messages */}
-            <div className="flex-1 overflow-y-auto p-4 space-y-4">
-              {messages.length === 0 ? (
-                <div className="text-center py-8 text-muted-foreground">
-                  <MessageSquare size={48} className="mx-auto mb-4 opacity-50" />
-                  <p>No messages yet. Start the conversation!</p>
-                </div>
-              ) : (
-                messages.map((message) => (
-                  <div
-                    key={message.id}
-                    className={`flex ${message.is_admin === isAdmin ? 'justify-end' : 'justify-start'}`}
-                  >
-                    <div
-                      className={`max-w-xs lg:max-w-md px-4 py-2 rounded-lg ${
-                        message.is_admin === isAdmin
-                          ? 'bg-primary text-primary-foreground'
-                          : 'bg-muted text-foreground'
-                      }`}
-                    >
-                      <p className="text-sm">{message.message}</p>
-                      <p className={`text-xs mt-1 ${
-                        message.is_admin === isAdmin ? 'text-primary-foreground/70' : 'text-muted-foreground'
-                      }`}>
-                        {new Date(message.created_at).toLocaleTimeString()}
-                      </p>
-                    </div>
-                  </div>
-                ))
-              )}
-              <div ref={messagesEndRef} />
-            </div>
-
-            {/* Message Input */}
-            <div className="p-4 border-t border-border bg-background">
-              <form onSubmit={sendMessage} className="flex gap-2">
+              <div className="mt-2 relative">
                 <input
                   type="text"
-                  value={newMessage}
-                  onChange={(e) => setNewMessage(e.target.value)}
-                  placeholder="Type your message..."
-                  className="flex-1 px-3 py-2 bg-background border border-border rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-transparent"
+                  placeholder="Search conversations..."
+                  className="w-full px-3 py-1.5 text-sm bg-background border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-transparent"
                 />
-                <button
-                  type="submit"
-                  disabled={!newMessage.trim()}
-                  className="p-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                <svg
+                  className="absolute right-2.5 top-2 h-4 w-4 text-muted-foreground"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
-                  <Send size={16} />
-                </button>
-              </form>
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                  />
+                </svg>
+              </div>
             </div>
-          </>
-        ) : (
-          <div className="flex-1 flex items-center justify-center">
-            <div className="text-center text-muted-foreground">
-              <Users size={48} className="mx-auto mb-4 opacity-50" />
-              <p>Select a conversation to start chatting</p>
+            <div className="flex-1 overflow-y-auto">
+              {chatRooms.length === 0 ? (
+                <div className="text-center py-8 px-4 text-muted-foreground">
+                  <Users size={48} className="mx-auto mb-4 opacity-50" />
+                  <p className="text-sm">No conversations yet</p>
+                  <p className="text-xs mt-1 text-muted-foreground/70">New messages will appear here</p>
+                </div>
+              ) : (
+                <div className="divide-y divide-border">
+                  {chatRooms.map((room) => (
+                    <div
+                      key={room.id}
+                      onClick={() => selectRoom(room)}
+                      className={`p-3 cursor-pointer hover:bg-muted/50 transition-colors ${
+                        selectedRoom?.id === room.id ? 'bg-muted/30' : ''
+                      }`}
+                    >
+                      <div className="flex items-center gap-3">
+                        <div className="relative">
+                          <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center">
+                            <User size={18} className="text-primary" />
+                          </div>
+                          <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-green-500 rounded-full border-2 border-background"></span>
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center justify-between">
+                            <h4 className="font-medium text-foreground text-sm truncate">{room.user_name}</h4>
+                            <span className="text-xs text-muted-foreground">
+                              {new Date(room.last_message_at).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}
+                            </span>
+                          </div>
+                          <p className="text-xs text-muted-foreground truncate">{room.user_email}</p>
+                          <p className="text-xs mt-0.5 text-muted-foreground/80 truncate">
+                            {room.last_message_at ? 'Last message: ' + new Date(room.last_message_at).toLocaleString() : 'No messages yet'}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
         )}
-      </div>
+
+        {/* Chat Messages */}
+        <div className="flex-1 flex flex-col bg-gradient-to-b from-card to-background/50">
+          {selectedRoom ? (
+            <>
+              {/* Chat Header */}
+              <div className="p-4 border-b border-border bg-card/80 backdrop-blur-sm">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <div className="relative">
+                      <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center">
+                        <User size={18} className="text-primary" />
+                      </div>
+                      <span className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 rounded-full border-2 border-background"></span>
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-foreground text-sm md:text-base">
+                        {isAdmin ? selectedRoom.user_name : 'Chat with Aman'}
+                      </h3>
+                      <p className="text-xs text-muted-foreground flex items-center gap-1">
+                        <span className="w-1.5 h-1.5 rounded-full bg-green-500"></span>
+                        {isAdmin ? selectedRoom.user_email : 'Online • Responds in a few minutes'}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={signOut}
+                      className="p-1.5 rounded-full hover:bg-muted text-muted-foreground hover:text-foreground transition-colors"
+                      title="Sign out"
+                    >
+                      <LogOut size={16} />
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              {/* Messages */}
+              <div className="flex-1 overflow-y-auto p-4 space-y-3">
+                {messages.length === 0 ? (
+                  <div className="h-full flex flex-col items-center justify-center text-center p-6 text-muted-foreground">
+                    <MessageSquare size={56} className="mx-auto mb-4 opacity-30" />
+                    <h4 className="font-medium text-foreground mb-1">No messages yet</h4>
+                    <p className="max-w-xs text-sm">
+                      {isAdmin 
+                        ? 'Start the conversation with the user.'
+                        : 'Send a message to start the conversation. I\'ll get back to you soon!'}
+                    </p>
+                  </div>
+                ) : (
+                  <div className="space-y-3">
+                    {messages.map((message, index) => {
+                      const isCurrentUser = message.is_admin === isAdmin;
+                      const showAvatar = !isCurrentUser || (isCurrentUser && index === 0) || 
+                        (index > 0 && messages[index - 1].is_admin !== isCurrentUser);
+                      
+                      return (
+                        <div
+                          key={message.id}
+                          className={`flex ${isCurrentUser ? 'justify-end' : 'justify-start'} group`}
+                        >
+                          <div className={`flex max-w-[85%] md:max-w-[65%] ${isCurrentUser ? 'flex-row-reverse' : 'flex-row'} items-start gap-2 group`}>
+                            {!isCurrentUser && showAvatar && (
+                              <div className="w-8 h-8 flex-shrink-0 bg-primary/10 rounded-full flex items-center justify-center mt-1">
+                                <User size={14} className="text-primary" />
+                              </div>
+                            )}
+                            {isCurrentUser && showAvatar && <div className="w-8"></div>}
+                            <div>
+                              <div
+                                className={`px-4 py-2.5 rounded-2xl ${
+                                  isCurrentUser
+                                    ? 'bg-primary text-primary-foreground rounded-br-none'
+                                    : 'bg-muted text-foreground rounded-bl-none'
+                                }`}
+                              >
+                                <p className="text-sm leading-relaxed">{message.message}</p>
+                              </div>
+                              <div className={`flex items-center mt-1 px-1 ${
+                                isCurrentUser ? 'justify-end' : 'justify-start'
+                              }`}>
+                                <span className={`text-[10px] ${
+                                  isCurrentUser ? 'text-primary-foreground/70' : 'text-muted-foreground'
+                                }`}>
+                                  {new Date(message.created_at).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                    <div ref={messagesEndRef} className="h-4" />
+                  </div>
+                )}
+              </div>
+
+              {/* Message Input */}
+              <div className="p-4 border-t border-border bg-card/80 backdrop-blur-sm">
+                <form onSubmit={sendMessage} className="relative">
+                  <div className="relative">
+                    <input
+                      type="text"
+                      value={newMessage}
+                      onChange={(e) => setNewMessage(e.target.value)}
+                      placeholder="Type your message..."
+                      className="w-full pl-4 pr-12 py-3 bg-background border border-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-transparent placeholder:text-muted-foreground/60"
+                    />
+                    <button
+                      type="submit"
+                      disabled={!newMessage.trim()}
+                      className={`absolute right-2 top-1/2 -translate-y-1/2 p-1.5 rounded-full ${
+                        newMessage.trim() 
+                          ? 'bg-primary text-primary-foreground hover:bg-primary/90' 
+                          : 'text-muted-foreground/50'
+                      } transition-colors`}
+                      title="Send message"
+                    >
+                      <Send size={18} />
+                    </button>
+                  </div>
+                </form>
+                <p className="text-xs text-center text-muted-foreground/60 mt-2">
+                  Press Enter to send • Shift+Enter for new line
+                </p>
+              </div>
+            </>
+          ) : (
+            <div className="h-full flex flex-col items-center justify-center p-6 text-center text-muted-foreground">
+              <MessageSquare size={56} className="mx-auto mb-4 opacity-30" />
+              <h4 className="font-medium text-foreground mb-1">No conversation selected</h4>
+              <p className="max-w-xs text-sm">
+                {isAdmin 
+                  ? 'Select a conversation from the sidebar to start chatting.'
+                  : 'Sign in to start a conversation.'}
+              </p>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   )
