@@ -1,0 +1,120 @@
+---
+title: "KreatorBoard match making algorithm"
+description: "Swipe matching engine for creators"
+date: 2026-03-08
+status: published
+tags: kreatorboard, matchmaking, creators, brands, algorithm
+---
+
+# How We Built the Matchmaking Algorithm Behind KreatorBoard
+
+KreatorBoard is a swipe-based matchmaking platform for Creators and Brands.
+It works like a modern dating app UX, but the goal is business collaboration: campaign deals, partnerships, and long-term brand-creator relationships.
+
+## The Problem We Wanted to Solve
+
+Most creator-brand discovery is still broken:
+
+- Brands waste time searching random profiles.
+- Creators get low-quality outreach.
+- Good matches are buried under noise.
+
+So we built a system where both sides can quickly discover high-fit profiles with a simple right-swipe and left-swipe flow.
+
+## Design Principles for Our Algorithm
+
+We built the matching engine around four principles:
+
+- Relevant first: show the most compatible profiles early.
+- No dead ends: users should never see an empty swipe screen for too long.
+- Safe and clean: blocked and unmatched users should never reappear.
+- Mutual intent: a match is created only when both users express interest.
+
+## Step 1: Candidate Generation (Who can be shown)
+
+When a user opens swipe, we fetch candidates using hard filters first:
+
+- Not self
+- Not already swiped recently
+- Not already matched (for active feed)
+- Not blocked or unmatched
+- Match objective filters (Brand to Creator, Creator to Brand, Brand to Brand, Creator to Creator)
+- Optional category filters (fashion, saas, food, gaming, etc.)
+
+This gives us a strict pool of candidates.
+
+## Step 2: Strict to Relaxed Fallback (to avoid empty feeds)
+
+Early-stage marketplaces face a cold-start problem.
+If we use only strict filters, users with niche preferences may get zero cards.
+
+So we use a two-mode strategy:
+
+- Strict mode: full filter conditions
+- Relaxed mode: if strict results are too low, gradually widen constraints
+
+This keeps relevance high while ensuring users always have profiles to explore.
+
+## Step 3: Ranking (Who appears first)
+
+From the candidate pool, we compute a compatibility score.
+Current ranking combines profile-fit signals like:
+
+- Role and objective alignment
+- Category overlap
+- Audience and influence type fit
+- Reach and follower compatibility
+- Profile quality and completeness
+- Recency and freshness
+
+A simple conceptual scoring form:
+
+```text
+Score = w1(role_fit)
+      + w2(category_overlap)
+      + w3(audience_fit)
+      + w4(scale_fit)
+      + w5(freshness)
+```
+
+Then we show top-ranked profiles first.
+
+## Step 4: Match State Machine (What happens after swipe)
+
+- Right swipe means "I'm interested".
+- Left swipe means skip.
+- If both users right-swipe each other, a match is created.
+- If only one side likes, it appears as a pending like.
+- Blocks and unmatches immediately remove visibility and message access.
+
+This keeps the experience intent-driven and low-noise.
+
+## Step 5: Why This Works for Creators and Brands
+
+For Creators:
+
+- Better brand discovery
+- Higher quality inbound opportunities
+- Less random outreach
+
+For Brands:
+
+- Faster creator shortlisting
+- Better campaign fit by category and audience
+- Cleaner collaboration pipeline
+
+## Real-World Product Layer
+
+The algorithm is tightly connected to product behavior:
+
+- Swipe deck updates by objective filters in real time
+- Pending likes and mutual matches are surfaced clearly
+- Matches move to chat and collaboration flow
+- Safety controls (block, report, unmatch) feed back into candidate filtering
+
+## What's Next
+
+As user volume grows, we'll move toward a learning system that adapts ranking from live behavior (swipes, replies, conversions), while keeping hard safety and objective filters in place.
+
+Our goal is simple:
+help creators and brands find the right partner faster, with less noise and more trust.
