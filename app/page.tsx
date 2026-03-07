@@ -8,6 +8,7 @@ import NotesSection from "@/components/notes-section"
 import FeedbackSection from "@/components/feedback-section"
 import ChatContainer from "@/components/chat-container"
 import { StatusSection } from "@/components/status-section"
+import { BlogHomeSection } from "@/components/blog-home-section"
 
 export default function Home() {
   const [isJumping, setIsJumping] = useState(false)
@@ -186,9 +187,9 @@ export default function Home() {
           </div>
           <h1 className="mb-2 text-4xl font-bold tracking-tight text-foreground md:text-5xl">Aman Kumar</h1>
           <p className="mb-4 font-mono text-lg text-muted-foreground">
-            Flutter • React Native • Data Engineering & Automation • React • Vue.js • Next.js • Node.js • TypeScript • Python • Cloud/DevOps (AWS, Azurre, GCP) • CI/CD • Docker • Kubernetes • Scripting • Gen AI • ML Ops — Fullstack Engineer
+            Flutter, React Native,  Data Engineering & Automation, React, Vue.js, Next.js, Cloud/DevOps, Scripting, Gen AI — Fullstack Engineer
           </p>
-          <StatusSection /> 
+          <StatusSection />
 
           <div className="flex gap-4">
             <a
@@ -271,6 +272,7 @@ export default function Home() {
                   Vibe coding is part of my life too - achieving 10x productivity through focused, flow-state development.
                 </p>
               </div>
+              <BlogHomeSection />
             </div>
 
             {/* Quick Chat Section - Right */}
