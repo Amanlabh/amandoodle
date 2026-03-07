@@ -27,7 +27,7 @@ export default async function BlogPage() {
 
         {posts.length === 0 ? (
           <div className="rounded-lg border border-border bg-card/80 p-6">
-            <p className="text-sm text-muted-foreground">No published blogs yet. Admin can create one from /admin/blog/new.</p>
+            <p className="text-sm text-muted-foreground">No published blogs yet.</p>
           </div>
         ) : (
           <div className="space-y-4">

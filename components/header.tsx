@@ -12,8 +12,6 @@ export function Header() {
         <Link href="/about" className="text-xs font-medium text-muted-foreground hover:text-foreground">About</Link>
         <span className="text-muted-foreground/60">/</span>
         <Link href="/blog" className="text-xs font-medium text-muted-foreground hover:text-foreground">Blog</Link>
-        <span className="text-muted-foreground/60">/</span>
-        <Link href="/admin/blog/new" className="text-xs font-medium text-muted-foreground hover:text-foreground">Admin</Link>
       </div>
 
       <div className="fixed top-4 right-4 z-50">
