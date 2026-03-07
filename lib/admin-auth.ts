@@ -17,7 +17,7 @@ export function getAdminPasswordHint() {
     return "Admin password is set in BLOG_ADMIN_PASSWORD."
   }
 
-  return "Admin password is \"change-me\". Set BLOG_ADMIN_PASSWORD in .env.local."
+  return "Admin password is \"change-me\". Set BLOG_ADMIN_PASSWORD in .env."
 }
 
 export async function loginAdmin(password: string) {
