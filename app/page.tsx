@@ -1,7 +1,7 @@
 "use client"
 
 import { Github, ExternalLink, Mail, Linkedin, Twitter, MessageSquare } from "lucide-react"
-import { useEffect, useState, useRef } from "react"
+import { useEffect, useState } from "react"
 import GitHubStats from "@/components/github-stats"
 import WorkExperience from "@/components/work-experience"
 import NotesSection from "@/components/notes-section"
@@ -9,64 +9,11 @@ import FeedbackSection from "@/components/feedback-section"
 import ChatContainer from "@/components/chat-container"
 import { StatusSection } from "@/components/status-section"
 import { BlogHomeSection } from "@/components/blog-home-section"
+import { DoodleDinoGame } from "@/components/doodle-dino-game"
 
 export default function Home() {
-  const [isJumping, setIsJumping] = useState(false)
-  const [doodlePosition, setDoodlePosition] = useState({ y: 0 })
-  const [velocity, setVelocity] = useState({ y: 0 })
-  const [isGameActive, setIsGameActive] = useState(false)
-  const [score, setScore] = useState(0)
-  const lastScrollY = useRef(0)
-  const animationRef = useRef<number | undefined>(undefined)
   const [terminalText, setTerminalText] = useState("")
   const fullText = "For work inquiries, email me at amanlabh4@gmail.com"
-
-  // Game physics
-  const jump = () => {
-    if (!isJumping) {
-      setIsJumping(true)
-      setVelocity(prev => ({ ...prev, y: -15 }))
-      setScore(prev => prev + 1)
-      setTimeout(() => setIsJumping(false), 600)
-    }
-  }
-
-  const gameLoop = () => {
-    if (!isGameActive) return
-
-    setVelocity(prev => {
-      const newVelocity = { ...prev }
-      // Apply gravity
-      newVelocity.y += 0.8
-      return newVelocity
-    })
-
-    setDoodlePosition(prev => {
-      let newY = prev.y + velocity.y
-
-      // Ground collision
-      if (newY > 0) {
-        newY = 0
-        setVelocity(v => ({ ...v, y: 0 }))
-        setIsJumping(false)
-      }
-
-      return { y: newY }
-    })
-
-    animationRef.current = requestAnimationFrame(gameLoop)
-  }
-
-  useEffect(() => {
-    if (isGameActive) {
-      animationRef.current = requestAnimationFrame(gameLoop)
-    }
-    return () => {
-      if (animationRef.current) {
-        cancelAnimationFrame(animationRef.current)
-      }
-    }
-  }, [isGameActive, velocity])
 
   useEffect(() => {
     let index = 0
@@ -132,52 +79,7 @@ export default function Home() {
         />
       </div>
 
-      {/* Interactive Doodle Game */}
-      <div className="fixed bottom-6 right-6 z-50">
-        <div className="relative">
-          {/* Score display */}
-          {isGameActive && (
-            <div className="absolute -top-8 right-0 font-mono text-xs text-foreground bg-card/80 px-2 py-1 rounded">
-              Score: {score}
-            </div>
-          )}
-          
-          {/* Game hint */}
-          {!isGameActive && (
-            <div className="absolute -top-12 right-0 font-mono text-xs text-muted-foreground bg-card/80 px-2 py-1 rounded whitespace-nowrap">
-              Click to play!
-            </div>
-          )}
-          
-          {/* Doodle mascot */}
-          <div
-            className={`cursor-pointer transition-transform duration-100 ${isJumping ? "scale-110" : "scale-100"}`}
-            style={{
-              transform: `translateY(${-doodlePosition.y}px)`,
-            }}
-            onClick={() => {
-              if (!isGameActive) {
-                setIsGameActive(true)
-              }
-              jump()
-            }}
-          >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/images/doodle-mascot.png"
-              alt="Interactive doodle mascot - click to jump!"
-              width={80}
-              height={80}
-              className="w-16 h-16 md:w-20 md:h-20 object-contain drop-shadow-lg hover:drop-shadow-xl transition-all duration-200"
-            />
-          </div>
-          
-          {/* Ground indicator */}
-          {isGameActive && (
-            <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-20 h-1 bg-linear-to-r from-transparent via-border to-transparent"></div>
-          )}
-        </div>
-      </div>
+      <DoodleDinoGame />
 
       {/* Content */}
       <div className="relative z-10 mx-auto max-w-5xl px-6 py-16 md:py-24">
