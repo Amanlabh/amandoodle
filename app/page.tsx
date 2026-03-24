@@ -142,39 +142,109 @@ export default function Home() {
                 // About
               </h2>
               <div className="space-y-4 text-foreground leading-relaxed">
+                <p>Final-year BTech CSE student building full-stack products with AI and cloud.</p>
                 <p>
-                  CS student building{" "}
+                  Learning applied AI systems (Claude API, MCP, AI Fluency foundations) and modern product delivery.
                   <a
-                    href="https://artyug.art"
+                    href="https://www.coursera.org/account/accomplishments/verify/VE6ZT33QFF3P"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="font-medium underline underline-offset-4 hover:text-muted-foreground"
+                    className="ml-2 font-medium text-foreground hover:underline underline-offset-4"
                   >
-                    artyug.art
+                    Coursera certificate
                   </a>
-                  , a startup venture for artists and creators.
                 </p>
                 <p>
-                  Ex Founding Engineer at{" "}
+                  <a
+                    href="https://learn.microsoft.com/en-gb/users/amankumar-3964/credentials/604498f53c720976?ref=https%3A%2F%2Fwww.linkedin.com%2F"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-semibold text-foreground hover:underline underline-offset-4"
+                  >
+                    Microsoft Certified Cloud Engineer
+                  </a>{" "}
+                  with hands-on infrastructure and deployment experience.
+                </p>
+                <p>
+                  Ex AI Intern at{" "}
+                  <a
+                    href="https://peakagent.ai/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-medium text-foreground hover:underline underline-offset-4"
+                  >
+                    peakagent.ai
+                  </a>{" "}
+                  & Ex Fullstack Developer at{" "}
                   <a
                     href="https://www.motojojo.co/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="font-medium underline underline-offset-4 hover:text-muted-foreground"
+                    className="font-medium text-foreground hover:underline underline-offset-4"
                   >
-                    Motojojo
+                    motojojo.co
                   </a>
-                  , specializing in AI automation and generative technologies.
+                  .
                 </p>
-                <p className="text-muted-foreground">
-                  Freelancer taking on additional projects and tasks to provide startups with tech consultancy and
-                  development guidance for better product outcomes.
-                </p>
-                <p className="text-muted-foreground">
-                  Vibe coding is part of my life too - achieving 10x productivity through focused, flow-state development.
-                </p>
+                <p>Focused on shipping reliable, scalable applications end-to-end.</p>
               </div>
-              <BlogHomeSection />
+            </div>
+
+            {/* Work Experience Section - Right */}
+            <div>
+              <h2 className="mb-6 font-mono text-sm font-medium uppercase tracking-wider text-muted-foreground">
+                // Work
+              </h2>
+              <WorkExperience />
+            </div>
+          </div>
+        </section>
+
+        <section className="mb-16">
+          <div className="grid gap-8 lg:grid-cols-2">
+            {/* Projects Section - Left */}
+            <div>
+              <h2 className="mb-6 font-mono text-sm font-medium uppercase tracking-wider text-muted-foreground">
+                // Things I made that made my life easy
+              </h2>
+
+              <div className="grid gap-4">
+                <div className="group rounded-lg border border-border bg-card/80 backdrop-blur-sm p-5 transition-all hover:border-foreground/20 hover:shadow-lg">
+                  <h3 className="font-medium text-foreground">Proxora AI</h3>
+                  <p className="mt-2 text-sm text-muted-foreground">
+                    Managed AI rental platform and proxy-based orchestration layer.
+                  </p>
+                  <ul className="mt-3 list-disc space-y-1 pl-5 text-sm text-muted-foreground">
+                    <li>Proxy routing so renters never touch raw provider keys.</li>
+                    <li>Token metering, usage tracking, and payout settlement.</li>
+                    <li>Developer access via CLI and REST API integrations.</li>
+                  </ul>
+                </div>
+
+                <div className="group rounded-lg border border-border bg-card/80 backdrop-blur-sm p-5 transition-all hover:border-foreground/20 hover:shadow-lg">
+                  <h3 className="font-medium text-foreground">Artyug.art</h3>
+                  <p className="mt-2 text-sm text-muted-foreground">
+                    Platform for artists and creators to showcase and collaborate.
+                  </p>
+                  <ul className="mt-3 list-disc space-y-1 pl-5 text-sm text-muted-foreground">
+                    <li>Creator profiles and curated portfolio discovery.</li>
+                    <li>Collaboration workflows for projects and commissions.</li>
+                    <li>Community features to grow creative networks.</li>
+                  </ul>
+                </div>
+
+                <div className="group rounded-lg border border-border bg-card/80 backdrop-blur-sm p-5 transition-all hover:border-foreground/20 hover:shadow-lg">
+                  <h3 className="font-medium text-foreground">KreatorBoard</h3>
+                  <p className="mt-2 text-sm text-muted-foreground">
+                    Swipe-based matchmaking for creators and brands.
+                  </p>
+                  <ul className="mt-3 list-disc space-y-1 pl-5 text-sm text-muted-foreground">
+                    <li>Intent-based matching with clean swipe UX.</li>
+                    <li>Compatibility ranking across category and audience fit.</li>
+                    <li>Fast shortlisting for collaborations and campaigns.</li>
+                  </ul>
+                </div>
+              </div>
             </div>
 
             {/* Quick Chat Section - Right */}
@@ -198,130 +268,12 @@ export default function Home() {
           </div>
         </section>
 
-        {/* GitHub Activity now comes after About */}
-        <GitHubStats username="Amanlabh" />
-
         <section className="mb-16">
-          <div className="grid gap-8 lg:grid-cols-2">
-            {/* Projects Section - Left */}
-            <div>
-              <h2 className="mb-6 font-mono text-sm font-medium uppercase tracking-wider text-muted-foreground">
-                // Things I made that made my life easy
-              </h2>
-
-              <div className="grid gap-4">
-                <div className="group rounded-lg border border-border bg-card/80 backdrop-blur-sm p-5 transition-all hover:border-foreground/20 hover:shadow-lg">
-                  <div className="mb-2 flex items-start justify-between">
-                    <h3 className="font-medium text-foreground">PortFILIA</h3>
-                    <div className="flex items-center gap-3">
-                      <a
-                        href="https://github.com/Amanlabh/PortFILIA"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-muted-foreground transition-colors hover:text-foreground"
-                      >
-                        <Github size={18} />
-                      </a>
-                      <a
-                        href="https://port-filia.vercel.app/"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-muted-foreground transition-colors hover:text-foreground"
-                      >
-                        <ExternalLink size={18} />
-                      </a>
-                    </div>
-                  </div>
-                  <p className="mb-3 text-sm text-muted-foreground">
-                    VueJS platform to create and follow portfolios, plus schedule or request
-                    Google Meet sessions.
-                  </p>
-                  <code className="font-mono text-xs text-muted-foreground">port-filia.vercel.app</code>
-                </div>
-
-                <div className="group rounded-lg border border-border bg-card/80 backdrop-blur-sm p-5 transition-all hover:border-foreground/20 hover:shadow-lg">
-                  <div className="mb-2 flex items-start justify-between">
-                    <h3 className="font-medium text-foreground">Coursera Skip & Test Chrome Extension</h3>
-                    <a
-                      href="https://github.com/Amanlabh/coursera"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-muted-foreground transition-colors hover:text-foreground"
-                    >
-                      <Github size={18} />
-                    </a>
-                  </div>
-                  <p className="mb-3 text-sm text-muted-foreground">
-                    Chrome extension to skip Coursera videos and automatically pass tests in one click.
-                  </p>
-                  <code className="font-mono text-xs text-muted-foreground">github.com/Amanlabh/coursera</code>
-                </div>
-
-                <div className="group rounded-lg border border-border bg-card/80 backdrop-blur-sm p-5 transition-all hover:border-foreground/20 hover:shadow-lg">
-                  <div className="mb-2 flex items-start justify-between">
-                    <h3 className="font-medium text-foreground">
-                      Toutatis <span className="text-muted-foreground">(Contributor)</span>
-                    </h3>
-                    <a
-                      href="https://github.com/Amanlabh/toutatis"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-muted-foreground transition-colors hover:text-foreground"
-                    >
-                      <Github size={18} />
-                    </a>
-                  </div>
-                  <p className="mb-3 text-sm text-muted-foreground">
-                    Python script to extract Instagram info—including mobile number and Gmail—from Instagram profiles.
-                  </p>
-                  <code className="font-mono text-xs text-muted-foreground">github.com/Amanlabh/toutatis</code>
-                </div>
-
-                <div className="group rounded-lg border border-border bg-card/80 backdrop-blur-sm p-5 transition-all hover:border-foreground/20 hover:shadow-lg">
-                  <div className="mb-2 flex items-start justify-between">
-                    <h3 className="font-medium text-foreground">Twitter (Grok) Session Extractor</h3>
-                    <span className="text-muted-foreground/50">
-                      <ExternalLink size={18} />
-                    </span>
-                  </div>
-                  <p className="text-sm text-muted-foreground">
-                    Utility to extract all the current session details from Twitter using web scraping techniques.
-                  </p>
-                </div>
-
-                <div className="group rounded-lg border border-border bg-card/80 backdrop-blur-sm p-5 transition-all hover:border-foreground/20 hover:shadow-lg">
-                  <div className="mb-2 flex items-start justify-between">
-                    <h3 className="font-medium text-foreground">
-                      Meta / Facebook <span className="text-muted-foreground">(Contributor)</span>
-                    </h3>
-                    <a
-                      href="https://github.com/facebook/create-react-app/pull/17143#issuecomment-3315336484"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-muted-foreground transition-colors hover:text-foreground"
-                    >
-                      <Github size={18} />
-                    </a>
-                  </div>
-                  <p className="mb-3 text-sm text-muted-foreground">
-                    Contributed to Meta by helping resolve security vulnerabilities in react-scripts.
-                  </p>
-                  <code className="font-mono text-xs text-muted-foreground">
-                    github.com/facebook/create-react-app/pull/17143
-                  </code>
-                </div>
-              </div>
-            </div>
-
-            {/* Work Experience Section - Right */}
-            <div>
-              <h2 className="mb-6 font-mono text-sm font-medium uppercase tracking-wider text-muted-foreground">
-                // Work
-              </h2>
-              <WorkExperience />
-            </div>
-          </div>
+          <BlogHomeSection />
         </section>
+
+        {/* GitHub Activity now comes after Projects */}
+        <GitHubStats username="Amanlabh" />
 
         <section className="mb-16">
           <div className="rounded-lg border border-border bg-neutral-900 overflow-hidden shadow-xl">

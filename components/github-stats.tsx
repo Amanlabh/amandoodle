@@ -1,6 +1,7 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
+import { animate, stagger, utils } from "animejs"
 import { Github, GitFork, Star, Users, BookOpen, Activity } from "lucide-react"
 
 interface GitHubUser {
@@ -35,17 +36,20 @@ export default function GitHubStats({ username }: { username: string }) {
   const [user, setUser] = useState<GitHubUser | null>(null)
   const [events, setEvents] = useState<GitHubEvent[]>([])
   const [repos, setRepos] = useState<GitHubRepo[]>([])
+  const [contributionSvg, setContributionSvg] = useState("")
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const contributionChartRef = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
     async function fetchGitHubData() {
       try {
         setLoading(true)
-        const [userRes, eventsRes, reposRes] = await Promise.all([
+        const [userRes, eventsRes, reposRes, contributionRes] = await Promise.all([
           fetch(`https://api.github.com/users/${username}`),
           fetch(`https://api.github.com/users/${username}/events/public?per_page=10`),
           fetch(`https://api.github.com/users/${username}/repos?sort=updated&per_page=6`),
+          fetch(`/api/github-contributions?username=${username}&color=22c55e`),
         ])
 
         if (!userRes.ok) throw new Error("Failed to fetch user data")
@@ -53,10 +57,12 @@ export default function GitHubStats({ username }: { username: string }) {
         const userData = await userRes.json()
         const eventsData = await eventsRes.json()
         const reposData = await reposRes.json()
+        const contributionData = contributionRes.ok ? await contributionRes.text() : ""
 
         setUser(userData)
         setEvents(eventsData.slice(0, 5))
         setRepos(reposData)
+        setContributionSvg(contributionData)
       } catch (err) {
         setError(err instanceof Error ? err.message : "Failed to load GitHub data")
       } finally {
@@ -66,6 +72,130 @@ export default function GitHubStats({ username }: { username: string }) {
 
     fetchGitHubData()
   }, [username])
+
+  useEffect(() => {
+    if (loading || error || !contributionSvg || !contributionChartRef.current) {
+      return
+    }
+
+    const rects = Array.from(
+      contributionChartRef.current.querySelectorAll<SVGRectElement>("rect[data-score]"),
+    )
+    if (!rects.length) {
+      return
+    }
+
+    const animatedRects = rects.filter((rect) => Number(rect.getAttribute("data-score") ?? "0") > 0)
+    if (!animatedRects.length) {
+      return
+    }
+
+    const xValues = new Set(rects.map((rect) => Number(rect.getAttribute("x") ?? "0")))
+    const yValues = new Set(rects.map((rect) => Number(rect.getAttribute("y") ?? "0")))
+    const grid: [number, number] = [xValues.size || 53, yValues.size || 7]
+
+    const baseGeometry = new Map<
+      SVGRectElement,
+      { x: number; y: number; width: number; height: number }
+    >()
+
+    animatedRects.forEach((rect) => {
+      const x = Number(rect.getAttribute("x") ?? "0")
+      const y = Number(rect.getAttribute("y") ?? "0")
+      const width = Number(rect.getAttribute("width") ?? "10")
+      const height = Number(rect.getAttribute("height") ?? "10")
+      baseGeometry.set(rect, { x, y, width, height })
+    })
+
+    let cancelled = false
+    let currentAnimation: ReturnType<typeof animate> | null = null
+
+    function animateGrid() {
+      if (cancelled) {
+        return
+      }
+
+      const from = utils.random(0, rects.length - 1)
+      currentAnimation = animate(animatedRects, {
+        x: [
+          {
+            to: (element: SVGRectElement) => {
+              const base = baseGeometry.get(element)
+              return base ? base.x - 1.1 : 0
+            },
+            ease: "outQuad",
+          },
+          {
+            to: (element: SVGRectElement) => {
+              const base = baseGeometry.get(element)
+              return base ? base.x : 0
+            },
+            ease: "inOutQuad",
+          },
+        ],
+        y: [
+          {
+            to: (element: SVGRectElement) => {
+              const base = baseGeometry.get(element)
+              return base ? base.y - 1.1 : 0
+            },
+            ease: "outQuad",
+          },
+          {
+            to: (element: SVGRectElement) => {
+              const base = baseGeometry.get(element)
+              return base ? base.y : 0
+            },
+            ease: "inOutQuad",
+          },
+        ],
+        width: [
+          {
+            to: (element: SVGRectElement) => {
+              const base = baseGeometry.get(element)
+              return base ? base.width + 2.2 : 10
+            },
+            ease: "outQuad",
+          },
+          {
+            to: (element: SVGRectElement) => {
+              const base = baseGeometry.get(element)
+              return base ? base.width : 10
+            },
+            ease: "inOutQuad",
+          },
+        ],
+        height: [
+          {
+            to: (element: SVGRectElement) => {
+              const base = baseGeometry.get(element)
+              return base ? base.height + 2.2 : 10
+            },
+            ease: "outQuad",
+          },
+          {
+            to: (element: SVGRectElement) => {
+              const base = baseGeometry.get(element)
+              return base ? base.height : 10
+            },
+            ease: "inOutQuad",
+          },
+        ],
+        opacity: [{ to: 0.72 }, { to: 1 }],
+        delay: stagger(120, { grid, from }),
+        duration: 1600,
+        endDelay: 260,
+        onComplete: animateGrid,
+      })
+    }
+
+    animateGrid()
+
+    return () => {
+      cancelled = true
+      currentAnimation?.pause()
+    }
+  }, [loading, error, contributionSvg])
 
   const getEventDescription = (event: GitHubEvent) => {
     switch (event.type) {
@@ -168,12 +298,19 @@ export default function GitHubStats({ username }: { username: string }) {
           <Github size={14} /> Contribution Graph
         </h3>
         <div className="rounded-lg border border-border bg-card/80 backdrop-blur-sm p-4 overflow-x-auto">
-          {/* Using ghchart.rshah.org for real contribution data */}
-          <img
-            src={`https://ghchart.rshah.org/22c55e/${username}`}
-            alt={`${username}'s GitHub contribution chart`}
-            className="w-full min-w-[700px]"
-          />
+          {contributionSvg ? (
+            <div
+              ref={contributionChartRef}
+              className="w-full min-w-[700px]"
+              dangerouslySetInnerHTML={{ __html: contributionSvg }}
+            />
+          ) : (
+            <img
+              src={`https://ghchart.rshah.org/22c55e/${username}`}
+              alt={`${username}'s GitHub contribution chart`}
+              className="w-full min-w-[700px]"
+            />
+          )}
           <div className="flex items-center justify-end gap-2 mt-4 text-xs text-muted-foreground font-mono">
             <span>Less</span>
             <div className="w-[11px] h-[11px] rounded-sm bg-[#e0e0e0]" />

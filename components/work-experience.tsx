@@ -6,14 +6,32 @@ interface WorkItem {
   companyUrl?: string
   location: string
   tags?: string[]
+  highlights?: string[]
 }
 
 const workExperience: WorkItem[] = [
+  {
+    title: "AI Intern",
+    company: "PeakAgent AI",
+    companyUrl: "https://peakagent.ai/",
+    location: "Remote",
+    tags: ["AI", "RAG", "LLMs"],
+    highlights: [
+      "Built an in-house MCP server and AI-driven fintech KPI index suite.",
+      "Implemented prompt caching to reduce latency and token cost.",
+      "Shipped RAG flows with BM25 lexical search for fast retrieval.",
+    ],
+  },
   {
     title: "Full Stack Developer",
     company: "Motojojo Pvt. Ltd.",
     companyUrl: "https://www.motojojo.co/",
     location: "Remote",
+    highlights: [
+      "Built an in-house CRM and ticket booking system.",
+      "Delivered bulk email workflows using AWS SES/SMTP.",
+      "Improved cost efficiency by migrating to SpaceMail SES provider.",
+    ],
   },
   {
     title: "Frontend Developer",
@@ -22,10 +40,15 @@ const workExperience: WorkItem[] = [
     tags: ["React"],
   },
   {
-    title: "Gen-AI Engineer (Freelance)",
+    title: "Gen-AI Engineer",
     company: "DU Desk",
     location: "Remote",
     tags: ["React", "Python", "Web Scraping", "SQL", "Scikit-learn"],
+    highlights: [
+      "Built automation data pipelines for analytics and reporting.",
+      "Worked with Ollama Vision OCR and multimodal extraction.",
+      "Developed robust web scraping with Scrapy, Selenium/Playwright, and Beautiful Soup.",
+    ],
   },
 ]
 
@@ -70,6 +93,14 @@ export default function WorkExperience() {
                 </span>
               ))}
             </div>
+          )}
+
+          {work.highlights && work.highlights.length > 0 && (
+            <ul className="mt-3 list-disc space-y-1 pl-5 text-sm text-muted-foreground">
+              {work.highlights.map((point) => (
+                <li key={point}>{point}</li>
+              ))}
+            </ul>
           )}
         </div>
       ))}
