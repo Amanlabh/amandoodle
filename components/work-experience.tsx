@@ -25,6 +25,13 @@ const workExperience: WorkItem[] = [
     ],
   },
   {
+    company: "LFT Algorithms",
+    location: "USA · Remote",
+    highlights: [
+      "Created algorithms to solve real-world problems, from problem modeling to efficient, tested implementations.",
+    ],
+  },
+  {
     title: "AI Intern",
     company: "PeakAgent AI",
     companyUrl: "https://peakagent.ai/",
