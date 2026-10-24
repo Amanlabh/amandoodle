@@ -1,7 +1,7 @@
 import { MapPin, ExternalLink } from "lucide-react"
 
 interface WorkItem {
-  title: string
+  title?: string
   company: string
   companyUrl?: string
   location: string
@@ -10,6 +10,20 @@ interface WorkItem {
 }
 
 const workExperience: WorkItem[] = [
+  {
+    title: "Paytm Intelligence Intern",
+    company: "Paytm",
+    companyUrl: "https://paytm.com/",
+    location: "Gurgaon · Present",
+  },
+  {
+    company: "Preproute",
+    location: "Delhi",
+    highlights: [
+      "Built fullstack systems end-to-end, from backend APIs and databases to production web apps.",
+      "Designed automation pipelines that streamline data workflows and remove manual effort.",
+    ],
+  },
   {
     title: "AI Intern",
     company: "PeakAgent AI",
@@ -61,7 +75,7 @@ export default function WorkExperience() {
           className="group rounded-lg border border-border bg-card/80 backdrop-blur-sm p-5 transition-all hover:border-foreground/20 hover:shadow-lg"
         >
           <div className="flex items-start justify-between mb-2">
-            <h3 className="font-medium text-foreground">{work.title}</h3>
+            <h3 className="font-medium text-foreground">{work.title ?? work.company}</h3>
             <span className="flex items-center gap-1 text-xs text-muted-foreground">
               <MapPin size={12} />
               {work.location}

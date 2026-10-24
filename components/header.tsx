@@ -1,7 +1,6 @@
 'use client'
 
 import Link from "next/link"
-import { ThemeToggle } from '@/components/theme-toggle'
 
 export function Header() {
   return (
@@ -12,10 +11,6 @@ export function Header() {
         <Link href="/about" className="text-xs font-medium text-muted-foreground hover:text-foreground">About</Link>
         <span className="text-muted-foreground/60">/</span>
         <Link href="/blog" className="text-xs font-medium text-muted-foreground hover:text-foreground">Blog</Link>
-      </div>
-
-      <div className="fixed top-4 right-4 z-50">
-        <ThemeToggle />
       </div>
     </>
   )

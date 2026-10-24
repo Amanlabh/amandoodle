@@ -10,7 +10,7 @@ const inter = Inter({ subsets: ["latin"] })
 const jetbrainsMono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-mono" })
 
 export const metadata: Metadata = {
-  title: "Aman Kumar | Flutter Developer & Fullstack Engineer",
+  title: "Aman Kumar Labh | Flutter Developer & Fullstack Engineer",
   description:
     "Full-stack developer, CS student, and AI automation specialist. Building Artyug and consulting for startups.",
   generator: "v0.app",
@@ -26,7 +26,8 @@ export default function RootLayout({
       <body className={`${inter.className} ${jetbrainsMono.variable} antialiased`}>
         <ThemeProvider
           attribute="class"
-          defaultTheme="light"
+          defaultTheme="dark"
+          forcedTheme="dark"
           enableSystem={false}
           disableTransitionOnChange
         >

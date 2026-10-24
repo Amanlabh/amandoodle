@@ -10,6 +10,7 @@ import ChatContainer from "@/components/chat-container"
 import { StatusSection } from "@/components/status-section"
 import { BlogHomeSection } from "@/components/blog-home-section"
 import { DoodleDinoGame } from "@/components/doodle-dino-game"
+import { BlackHole } from "@/components/black-hole"
 
 export default function Home() {
   const [terminalText, setTerminalText] = useState("")
@@ -30,66 +31,19 @@ export default function Home() {
 
   return (
     <main className="relative min-h-screen bg-background overflow-x-hidden">
-      {/* 3D Grid Background */}
-      <div className="pointer-events-none fixed inset-0 overflow-hidden">
-        <div
-          className="absolute inset-0"
-          style={{
-            backgroundImage: `
-              linear-gradient(to right, var(--grid-color) 1px, transparent 1px),
-              linear-gradient(to bottom, var(--grid-color) 1px, transparent 1px)
-            `,
-            backgroundSize: "60px 60px",
-          }}
-        />
-        <div
-          className="absolute inset-0"
-          style={{
-            background: `
-              radial-gradient(ellipse at 50% 0%, transparent 0%, var(--background) 70%),
-              linear-gradient(to bottom, transparent 0%, var(--background) 100%)
-            `,
-          }}
-        />
-        <div
-          className="absolute bottom-0 left-0 right-0 h-[60vh]"
-          style={{
-            background: "linear-gradient(to top, var(--background) 0%, transparent 100%)",
-            transform: "perspective(500px) rotateX(60deg)",
-            transformOrigin: "bottom center",
-          }}
-        >
-          <div
-            className="absolute inset-0"
-            style={{
-              backgroundImage: `
-                linear-gradient(to right, var(--grid-color) 1px, transparent 1px),
-                linear-gradient(to bottom, var(--grid-color) 2px, transparent 2px)
-              `,
-              backgroundSize: "80px 40px",
-            }}
-          />
-        </div>
-        <div
-          className="absolute inset-0 opacity-30"
-          style={{
-            backgroundImage: "radial-gradient(var(--grid-color) 1px, transparent 1px)",
-            backgroundSize: "20px 20px",
-          }}
-        />
-      </div>
+      <BlackHole />
 
       <DoodleDinoGame />
 
       {/* Content */}
-      <div className="relative z-10 mx-auto max-w-5xl px-6 py-16 md:py-24">
+      <div data-warp className="relative z-10 mx-auto max-w-5xl px-6 py-16 md:py-24">
         <header className="mb-16">
           <div className="mb-6 inline-block rounded border border-border bg-card/80 backdrop-blur-sm px-3 py-1 font-mono text-sm text-muted-foreground">
             ~/aman-kumar
           </div>
-          <h1 className="mb-2 text-4xl font-bold tracking-tight text-foreground md:text-5xl">Aman Kumar</h1>
+          <h1 className="mb-2 text-4xl font-bold tracking-tight text-foreground md:text-5xl">Aman Kumar Labh</h1>
           <p className="mb-4 font-mono text-lg text-muted-foreground">
-            Flutter, React Native,  Data Engineering & Automation, React, Vue.js, Next.js, Cloud/DevOps, Scripting, Gen AI — Fullstack Engineer
+            Data Engineering & Automation, Cloud/DevOps, Scripting, Gen AI, System Design & Architecture, Scalable Systems — Fullstack Engineer
           </p>
           <StatusSection />
 
@@ -142,17 +96,19 @@ export default function Home() {
                 // About
               </h2>
               <div className="space-y-4 text-foreground leading-relaxed">
-                <p>Final-year BTech CSE student building full-stack products with AI and cloud.</p>
+                <p className="font-semibold text-foreground">B.Tech graduate, Intern at Paytm.</p>
                 <p>
-                  Learning applied AI systems (Claude API, MCP, AI Fluency foundations) and modern product delivery.
-                  <a
-                    href="https://www.coursera.org/account/accomplishments/verify/VE6ZT33QFF3P"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="ml-2 font-medium text-foreground hover:underline underline-offset-4"
-                  >
-                    Coursera certificate
-                  </a>
+                  Worked with entertainment startups, EdTech startups and a law firm, and{" "}
+                  <span className="font-semibold text-foreground">
+                    currently working at India&apos;s Fintech giant and a unicorn.
+                  </span>
+                </p>
+                <p>
+                  <span className="font-semibold text-foreground">2+ years of experience</span> building scalable systems and as a technical consultant. I
+                  leverage AI to build systems.
+                </p>
+                <p>
+                  Building applied AI systems (Claude API, MCP, AI Fluency foundations) and modern product delivery.
                 </p>
                 <p>
                   <a
@@ -161,28 +117,7 @@ export default function Home() {
                     rel="noopener noreferrer"
                     className="font-semibold text-foreground hover:underline underline-offset-4"
                   >
-                    Microsoft Certified Cloud Engineer
-                  </a>{" "}
-                  with hands-on infrastructure and deployment experience.
-                </p>
-                <p>
-                  Ex AI Intern at{" "}
-                  <a
-                    href="https://peakagent.ai/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="font-medium text-foreground hover:underline underline-offset-4"
-                  >
-                    peakagent.ai
-                  </a>{" "}
-                  & Ex Fullstack Developer at{" "}
-                  <a
-                    href="https://www.motojojo.co/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="font-medium text-foreground hover:underline underline-offset-4"
-                  >
-                    motojojo.co
+                    Microsoft Certified Azure Administrator
                   </a>
                   .
                 </p>
@@ -209,6 +144,24 @@ export default function Home() {
               </h2>
 
               <div className="grid gap-4">
+                <div className="group rounded-lg border border-border bg-card/80 backdrop-blur-sm p-5 transition-all hover:border-foreground/20 hover:shadow-lg">
+                  <h3 className="font-medium text-foreground">
+                    <a
+                      href="http://tracefootprint.space/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:underline underline-offset-4"
+                    >
+                      Trace Footprint
+                    </a>
+                  </h3>
+                  <p className="mt-2 text-sm text-muted-foreground">Open-source project.</p>
+                  <ul className="mt-3 list-disc space-y-1 pl-5 text-sm text-muted-foreground">
+                    <li>250+ LinkedIn insights.</li>
+                    <li>18+ GitHub stars.</li>
+                  </ul>
+                </div>
+
                 <div className="group rounded-lg border border-border bg-card/80 backdrop-blur-sm p-5 transition-all hover:border-foreground/20 hover:shadow-lg">
                   <h3 className="font-medium text-foreground">Proxora AI</h3>
                   <p className="mt-2 text-sm text-muted-foreground">
